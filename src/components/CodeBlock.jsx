@@ -9,7 +9,7 @@ export function CodeBlock(props) {
 			array.push(<div className="hover:bg-slate-700/80 -mx-4 px-4" key={index}>{textArray[index]}</div>);
 		}
 		return array;
-	}, props.text)
+	}, [props.text])
 	return <pre className={props.className + " font-mono whitespace-pre bg-slate-800 text-white rounded-lg p-4 border-2 border-white/20 max-w-full overflow-auto"}>
 		{children}
 	</pre>
