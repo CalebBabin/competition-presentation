@@ -4,6 +4,7 @@ import PageLayoutWrapper from "../components/PageLayoutWrapper";
 import { Button } from "../components/Button";
 import TextInput from "../components/Input";
 import { CodeBlock } from "../components/CodeBlock";
+import { useBackground } from "../util/setPageBackground";
 
 //import methods
 function parseGoogleSheetsURL(originalURL = '') {
@@ -35,7 +36,7 @@ function GoogleSheetsImport({ onComplete }) {
 				console.error(e);
 				setPending(false);
 			}
-		}}>Grab Data</Button>
+		}} icon="start">Grab Data</Button>
 	</>
 }
 
@@ -53,7 +54,7 @@ function ImportRawData({ nextStep }) {
 		{importMethod ? importMethod : <>
 			<Button onClick={() => {
 				setImportMethod(<GoogleSheetsImport onComplete={onComplete} />)
-			}}>Google Sheets</Button>
+			}} icon="assignment">Google Sheets</Button>
 		</>}
 	</>
 }
@@ -123,6 +124,7 @@ function FilterData({ data, nextStep }) {
 
 const steps = [ImportRawData, FilterData];
 function Setup() {
+	useBackground('#0f766e');
 	const [stepIndex, setStepIndex] = useState(0);
 	const [data, setData] = useState({});
 
@@ -142,11 +144,9 @@ function Setup() {
 		/>;
 	}, [stepIndex, data]);
 
-	return (
-		<PageLayoutWrapper>
-			{currentStep}
-		</PageLayoutWrapper>
-	)
+	return (<>
+		{currentStep}
+	</>)
 }
 
 export default Setup
