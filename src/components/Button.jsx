@@ -17,8 +17,11 @@ export function Button(props) {
 		case 'red':
 			themeClass = 'text-white font-bold bg-rose-500 hover:bg-rose-600';
 			break;
+		case 'teal':
+			themeClass = 'text-white font-bold bg-cyan-500 hover:bg-cyan-600';
+			break;
 		default:
-			themeClass = 'text-white font-bold bg-sky-500 hover:bg-sky-600';
+			themeClass = 'text-white font-bold bg-blue-500 hover:bg-blue-600';
 			break;
 	}
 
