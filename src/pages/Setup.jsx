@@ -102,7 +102,10 @@ function FilterData({ data, nextStep }) {
 				</select>
 			</div>
 		</div>
-		<CodeBlock text={JSON.stringify(data[0], null, 4)} />
+
+		<div className="px-4 w-full">
+			<CodeBlock text={JSON.stringify(data[0], null, 4)} />
+		</div>
 
 		<Button onClick={() => {
 			data.forEach((item, index) => {
@@ -126,7 +129,9 @@ function Setup() {
 	const currentStep = useMemo(() => {
 		const Element = steps[stepIndex];
 
-		if (!Element) return <CodeBlock text={JSON.stringify(data, null, 4)} />;
+		if (!Element) return <div className="px-4 w-full">
+			<CodeBlock text={JSON.stringify(data, null, 4)} />
+		</div>
 
 		return <Element
 			data={data}
