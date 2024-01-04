@@ -2,7 +2,7 @@ import { useMemo, useState } from "react"
 import { csvToJson } from "../util/parseCSV";
 import PageLayoutWrapper from "../components/PageLayoutWrapper";
 import { Button } from "../components/Button";
-import TextInput from "../components/Input";
+import TextInput, { TextArea } from "../components/Input";
 import { CodeBlock } from "../components/CodeBlock";
 import { useBackground } from "../util/setPageBackground";
 
@@ -40,6 +40,32 @@ function GoogleSheetsImport({ onComplete }) {
 	</>
 }
 
+
+function RawJSONImport({ onComplete }) {
+	const [pending, setPending] = useState(false);
+	const [data, setData] = useState();
+
+	return <>
+		<p>
+			Raw JSON data import
+		</p>
+		<TextArea disabled={pending} onChange={(e) => {
+			if (!pending) setData(e.target.value)
+		}} className="w-full max-w-lg whitespace-pre font-mono" />
+		<Button disabled={pending} onClick={async () => {
+			if (pending) return;
+			setPending(true);
+			try {
+				const json = JSON.parse(data);
+				onComplete(json);
+			} catch (e) {
+				console.error(e);
+				setPending(false);
+			}
+		}} icon="start">Grab Data</Button>
+	</>
+}
+
 function ImportRawData({ nextStep }) {
 	const [importMethod, setImportMethod] = useState();
 
@@ -55,7 +81,12 @@ function ImportRawData({ nextStep }) {
 			<Button onClick={() => {
 				setImportMethod(<GoogleSheetsImport onComplete={onComplete} />)
 			}} icon="assignment">Google Sheets</Button>
+			<Button onClick={() => {
+				setImportMethod(<RawJSONImport onComplete={onComplete} />)
+			}} icon="developer_mode">paste JSON</Button>
 		</>}
+
+
 	</>
 }
 
