@@ -1,6 +1,6 @@
 # Competition Decider!
 
-[https://competition-presentation.opl.io/]
+[https://competition-presentation.opl.io/](https://competition-presentation.opl.io/)
 
 Create a presentation around determining the outcome of a competition. Runs in the browser with slick animations and google sheets integration for easy submissions through google forms. 
 
