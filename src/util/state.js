@@ -115,7 +115,15 @@ export function useCategory(category) {
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
-		setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
+		// setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
+		const timeout = setTimeout(() => {
+			setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
+		}, 1000);
+		return () => {
+			try {
+				clearTimeout(timeout);
+			} catch (e) { }
+		}
 	}, [category]);
 
 	useEffect(() => {
