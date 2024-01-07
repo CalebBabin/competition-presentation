@@ -1,3 +1,4 @@
+import { triggerPopup } from "./BigViewPopup";
 
 export function ItemPreview({ item, inactive = false }) {
 	let embed;
@@ -24,6 +25,13 @@ export function ItemPreview({ item, inactive = false }) {
 		<div>
 			{item.data.title && <h1 className="relative z-10 pointer-events-none text-4xl -mb-8 h-16">{item.data.title}</h1>}
 			{item.data.author && <h3 className="text-xl">{item.data.author}</h3>}
+
+			<span
+				onClick={() => { triggerPopup(item) }}
+				className="material-symbols-outlined"
+			>
+				open_in_full
+			</span>
 		</div>
 	</div>
 }

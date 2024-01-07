@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { CodeBlock } from "../components/CodeBlock";
 import { ItemPreview } from "../components/ItemPreview";
 import { useBackground } from "../util/setPageBackground"
 import { useCategory, useCategoryCount } from "../util/state";
+import BigViewPopup from "../components/BigViewPopup";
 
 function CategoryOverview({ category }) {
 	const count = useCategoryCount(category);
@@ -13,7 +13,6 @@ function CategoryOverview({ category }) {
 	const ref = useRef();
 	useEffect(() => {
 		if (!ref.current) return;
-
 		let targetHeight = 0;
 		const resizeListener = () => {
 			targetHeight = ref.current.children[0].offsetHeight;
@@ -54,6 +53,7 @@ function Competition() {
 	useBackground('#591388');
 
 	return (<>
+		<BigViewPopup />
 		<div className="flex flex-col gap-4 justify-stretch">
 			Competition start!
 		</div>
