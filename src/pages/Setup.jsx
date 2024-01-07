@@ -5,6 +5,8 @@ import { Button } from "../components/Button";
 import TextInput, { TextArea } from "../components/Input";
 import { CodeBlock } from "../components/CodeBlock";
 import { useBackground } from "../util/setPageBackground";
+import { addItem, clearState } from "../util/state";
+import { Navigate } from "react-router-dom";
 
 //import methods
 function parseGoogleSheetsURL(originalURL = '') {
@@ -85,8 +87,6 @@ function ImportRawData({ nextStep }) {
 				setImportMethod(<RawJSONImport onComplete={onComplete} />)
 			}} icon="developer_mode">paste JSON</Button>
 		</>}
-
-
 	</>
 }
 
@@ -162,9 +162,11 @@ function Setup() {
 	const currentStep = useMemo(() => {
 		const Element = steps[stepIndex];
 
-		if (!Element) return <div className="px-4 w-full">
-			<CodeBlock text={JSON.stringify(data, null, 4)} />
-		</div>
+		if (!Element) {
+			clearState();
+			for (let i = 0; i < data.length; i++) addItem(data[i]);
+			return <Navigate to="/competition" />
+		}
 
 		return <Element
 			data={data}
