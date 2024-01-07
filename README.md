@@ -10,7 +10,7 @@ Create a presentation around determining the outcome of a competition. Runs in t
 	- ~~dynamically configure common fields like "main content", title, and attribution for better formatting~~ (done)
 - Stream-ready
 	- Fancy styling and animations to keep viewers entertained
-- Save/Restore progress
+- ~~Save/Restore progress~~ (done)
 	- Enable easy presets so people can set up a competition for a streamer
 		- Ideally accessible through a single link.
 	- Add a "slideshow" mode for just revealing the results
