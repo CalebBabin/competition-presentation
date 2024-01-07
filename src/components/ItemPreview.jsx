@@ -18,7 +18,10 @@ export function ItemPreview({ item, inactive = false }) {
 		embed = <img src={item.data.content} crossOrigin="anonymous" className="w-full h-auto aspect-video object-contain" />
 	}
 
-	return <div className="w-full bg-slate-700 rounded flex gap-4 items-center">
+	return <div
+		className="w-full bg-slate-700 rounded flex gap-4 items-center"
+		onMouseEnter={() => { preloadPopup(item) }}
+	>
 		<div className="w-4/12">
 			{embed}
 		</div>

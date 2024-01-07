@@ -4,6 +4,9 @@ import { Button } from "./Button";
 export function triggerPopup(item) {
 	window.dispatchEvent(new CustomEvent('itemPreviewPopup', { detail: item }));
 }
+export function preloadPopup(item) {
+	window.dispatchEvent(new CustomEvent('switchPopupEmbed', { detail: item }));
+}
 
 function PopupContents() {
 	const [item, setItem] = useState();
