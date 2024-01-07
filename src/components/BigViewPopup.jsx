@@ -12,8 +12,13 @@ function PopupContents() {
 		const listener = (event) => {
 			setItem(event.detail);
 
-			if (!event.detail) ref.current.style.transform = 'scale(0,0) rotate(45deg)';
-			else ref.current.style.transform = 'scale(1,1) rotate(0deg)';
+			if (!event.detail) {
+				ref.current.style.transform = 'scale(0,0) rotate(45deg)';
+				ref.current.style.opacity = '0';
+			} else {
+				ref.current.style.transform = 'scale(1,1) rotate(0deg)';
+				ref.current.style.opacity = '1';
+			}
 		};
 		window.addEventListener('switchPopupEmbed', listener);
 		return () => {
