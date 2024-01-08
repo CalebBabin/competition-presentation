@@ -50,7 +50,7 @@ function CategoryOverview({ category }) {
 }
 
 function Competition() {
-	useBackground('#591388');
+	useBackground('#aa2556');
 	const totalCount = useCategoryCount('no') + useCategoryCount('maybe') + useCategoryCount('yes');
 	return (<>
 		<BigViewPopup />
@@ -69,21 +69,21 @@ function Competition() {
 
 		<div className="w-full text-center border-t-4 border-dashed">
 			<h2 className="text-xl lg:text-4xl my-8">Pick your method!</h2>
-			<div className="my-8 flex gap-8 px-8 overflow-x-scroll">
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">1</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">2</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">3</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">4</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">5</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">6</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">7</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">8</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">9</div>
+			<div className="my-8 flex gap-8 px-16 py-8 overflow-x-scroll">
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Tinder Style<br />(pass/fail)</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Showdown!<br />(1v1)</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Free-For-All<br />(semi-organized chaos)</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">I Love Democracy<br />(automated chat vote)</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Lottery<br />(completely random)</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Award Show<br />(category nominations)</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">7</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">8</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">9</div>
 			</div>
 		</div>
 
 		<div className="w-full text-center border-t-4 border-dashed">
-			<h2 className="text-xl lg:text-4xl my-8">all submissions:</h2>
+			<h2 className="text-xl lg:text-4xl mt-32 mb-8">all submissions:</h2>
 		</div>
 		<CategoryOverview category="yes" />
 		<CategoryOverview category="no" />
