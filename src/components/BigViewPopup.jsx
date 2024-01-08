@@ -86,7 +86,7 @@ export default function BigViewPopup() {
 
 	return <div style={{
 		opacity: 0,
-	}} ref={ref} className="transition-all duration-500 fixed inset-0 z-[100] pointer-events-none bg-black/50">
+	}} ref={ref} className="transition-all duration-1000 fixed inset-0 z-[100] pointer-events-none bg-black/90">
 		<PopupContents />
 		<div className="absolute top-4 right-4">
 			<Button onClick={() => {
