@@ -51,16 +51,46 @@ function CategoryOverview({ category }) {
 
 function Competition() {
 	useBackground('#591388');
-
+	const totalCount = useCategoryCount('no') + useCategoryCount('maybe') + useCategoryCount('yes');
 	return (<>
 		<BigViewPopup />
-		<div className="flex flex-col gap-4 justify-stretch">
-			Competition start!
+		<div className="text-center">
+			<h2 className="text-xl md:text-3xl lg:text-6xl my-8">competition view</h2>
+			<h2 className="my-8">
+				<span className="text-4xl md:text-7xl lg:text-9xl my-8 leading-[50%]">
+					{totalCount}
+				</span>
+				<br />
+				<small className="text-lg md:text-xl lg:text-2xl leading-[0%]">submissions<br />remaining</small>
+			</h2>
+
+		</div>
+
+
+		<div className="w-full text-center border-t-4 border-dashed">
+			<h2 className="text-xl lg:text-4xl my-8">Pick your method!</h2>
+			<div className="my-8 flex gap-8 px-8 overflow-x-scroll">
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">1</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">2</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">3</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">4</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">5</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">6</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">7</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">8</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-lg">9</div>
+			</div>
+		</div>
+
+		<div className="w-full text-center border-t-4 border-dashed">
+			<h2 className="text-xl lg:text-4xl my-8">all submissions:</h2>
 		</div>
 		<CategoryOverview category="yes" />
 		<CategoryOverview category="no" />
 		<CategoryOverview category="maybe" />
 		<CategoryOverview category="graveyard" />
+
+		<div className="my-16" />
 	</>)
 }
 
