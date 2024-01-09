@@ -20,7 +20,6 @@ function setIndex(newIndex = 0) {
 	}
 }
 
-setInterval(advanceIndex, 1250);
 
 function ItemRenderer(props) {
 	const [liveIndex, setLiveIndex] = useState(index);
@@ -57,6 +56,13 @@ function ItemRenderer(props) {
 export default function TinderMethod() {
 	const allItems = useAllItems();
 	const remainingCount = useCategoryCount('maybe');
+
+	useEffect(() => {
+		const interval = setInterval(advanceIndex, 1250);
+		return () => {
+			clearInterval(interval);
+		}
+	}, [])
 
 	const output = useMemo(() => {
 		const array = [];
