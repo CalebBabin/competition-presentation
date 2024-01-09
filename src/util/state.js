@@ -21,11 +21,12 @@ function restoreFromLocalStorage() {
 		if (input) {
 			const data = JSON.parse(input);
 			for (let index = 0; index < data.length; index++) {
-				new Item(data[index], data[index].category);
+				new Item(data[index]);
 			}
 		}
 	} catch (e) {
 		console.error('Failed to restore competition from localstorage');
+		console.error(e);
 		console.log(window.localStorage.getItem('stateMap'));
 	}
 }
@@ -51,7 +52,9 @@ function removeFromCategory(item = new Item(), category = 'maybe') {
 	changes_to_save = true;
 }
 function addToCategory(item = new Item(), category = 'maybe') {
-	item.category = category;
+	if (!categoryMap.has(category)) return;
+
+	item.update({ category });
 	categoryMap.get(category).push(item);
 	triggerStateEvent("category_" + category + "_newitem", item);
 	changes_to_save = true;
@@ -64,29 +67,42 @@ class Item {
 	 * @param {Object} data 
 	 * @param {String} category 
 	 */
-	constructor(data = {}, category = "maybe") {
+	constructor(data = {}) {
 		this.key = keyIndex++;
 		this.data = data;
 		this.listeners = [];
-		this.listenerIndex = 0;
 		stateMap.set(keyIndex, this);
-		this.switchCategory(category);
+		addToCategory(this, data.category);
 		changes_to_save = true;
 	}
 
-	switchCategory(new_category) {
-		if (new_category === this.category) return;
-		if (typeof this.category === 'string') removeFromCategory(this, this.category);
-		if (categoryMap.has(new_category)) addToCategory(this, new_category);
+	update(new_data) {
+		for (const key in new_data) {
+			if (Object.hasOwnProperty.call(new_data, key)) {
+				const value = new_data[key];
+				this.data[key] = value;
+			}
+		}
+		this.emit(new_data);
+	}
+
+	switchCategory(new_category = "maybe") {
+		if (typeof this.data.category === 'string') removeFromCategory(this, this.data.category);
+		addToCategory(this, new_category);
+	}
+
+	emit(new_data = this.data) {
+		for (let index = 0; index < this.listeners.length; index++) {
+			this.listeners[index](new_data);
+		}
 	}
 
 	attach(callback) {
-		callback.listenerId = this.listenerIndex++;
 		this.listeners.push(callback);
 	}
 	detach(callback) {
 		for (let i = this.listeners.length; i >= 0; i--) {
-			if (this.listeners[i].listenerId === callback.listenerId) {
+			if (this.listeners[i] === callback) {
 				this.listeners.splice(i, 1);
 				break;
 			}
@@ -111,6 +127,22 @@ export function clearState() {
 
 
 // Hooks
+export function useAllItems() {
+	const [items, setItems] = useState([]);
+	useEffect(() => {
+		setItems(Array.from(stateMap, ([key, value]) => value));
+		const timeout = setTimeout(() => {
+			setItems(Array.from(stateMap, ([key, value]) => value));
+		}, 1000);
+		return () => {
+			try {
+				clearTimeout(timeout);
+			} catch (e) { }
+		}
+	}, []);
+	return items;
+}
+
 export function useCategory(category) {
 	const [items, setItems] = useState([]);
 
@@ -166,4 +198,21 @@ export function useCategoryCount(category) {
 		}
 	}, [category, count]);
 	return count;
+}
+
+export function useItemData(item) {
+	const [data, setData] = useState(item.data);
+
+	useEffect(() => {
+		const listener = () => {
+			setData({ ...item.data });
+		}
+		listener();
+		item.attach(listener);
+		return () => {
+			item.detach(listener);
+		}
+	}, [item.key]);
+
+	return data;
 }

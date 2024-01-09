@@ -3,6 +3,7 @@ import { ItemPreview } from "../components/ItemPreview";
 import { useBackground } from "../util/setPageBackground"
 import { useCategory, useCategoryCount } from "../util/state";
 import BigViewPopup from "../components/BigViewPopup";
+import { Link } from "react-router-dom";
 
 function CategoryOverview({ category }) {
 	const count = useCategoryCount(category);
@@ -70,15 +71,34 @@ function Competition() {
 		<div className="w-full text-center border-t-4 border-dashed">
 			<h2 className="text-xl lg:text-4xl my-8">Pick your method!</h2>
 			<div className="my-8 flex gap-8 px-16 py-8 overflow-x-scroll">
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Tinder Style<br />(pass/fail)</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Showdown!<br />(1v1)</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Free-For-All<br />(semi-organized chaos)</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">I Love Democracy<br />(automated chat vote)</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Lottery<br />(completely random)</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">Award Show<br />(category nominations)</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">7</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">8</div>
-				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md">9</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					Tinder Style<br />(pass/fail)
+					<Link to="/competition/TinderMethod" className="absolute inset-0" />
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					Showdown!<br />(1v1)
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					Free-For-All<br />(semi-organized chaos)
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					I Love Democracy<br />(automated chat vote)
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					Lottery<br />(completely random)
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					Award Show<br />(category nominations)
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					7
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					8
+				</div>
+				<div className="flex-none aspect-video w-48 bg-slate-700 rounded shadow-md overflow-hidden relative">
+					9
+				</div>
 			</div>
 		</div>
 

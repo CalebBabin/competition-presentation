@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Setup from './pages/Setup';
 import PageLayoutWrapper from './components/PageLayoutWrapper';
 import Competition from './pages/Competition';
+import CompetitionActivity from './pages/CompetitionActivity';
 
 const router = createBrowserRouter([
 	{
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
 	{
 		path: "/competition",
 		element: <Competition />,
+	},
+	{
+		path: "/competition/:activity",
+		element: <CompetitionActivity />,
 	},
 ]);
 
