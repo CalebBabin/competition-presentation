@@ -38,3 +38,22 @@ export function ItemPreview({ item, inactive = false }) {
 		</div>
 	</div>
 }
+
+export function ImageEmbed ({item}) {
+	let embed;
+	if (item.data.content.startsWith('https://drive.google.com/open')) {
+		const url = new URL(item.data.content);
+		const file_id = url.searchParams.get('id');
+		embed = <iframe
+			src={`https://drive.google.com/file/d/${file_id}/preview`}
+			className="aspect-video w-full h-auto"
+			width={1920}
+			height={1080}
+			crossOrigin="anonymous"
+		/>
+	} else {
+		embed = <img src={item.data.content} crossOrigin="anonymous" className="w-full h-auto aspect-video object-contain" />
+	}
+
+	return embed;
+}

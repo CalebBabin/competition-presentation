@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAllItems, useCategory, useCategoryCount, useItemData } from "../../util/state";
+import { ImageEmbed } from "../../components/ItemPreview";
 
 let index = 0;
 let indexMax = 0;
@@ -48,7 +49,9 @@ function ItemRenderer(props) {
 		}}
 	>
 		<div className="w-full h-24 bg-slate-700">{data.title}</div>
-		<div className="aspect-video bg-slate-500 w-full max-w-[calc(100vh*1.7777777778-18rem)]">Content</div>
+		<div className="aspect-video bg-slate-500 w-full max-w-[calc(100vh*1.7777777778-18rem)]">
+			<ImageEmbed item={props.item} />
+			</div>
 		<div className="w-full h-24 bg-slate-700">{data.author}</div>
 	</div>
 }
