@@ -1,4 +1,4 @@
-import { triggerPopup } from "./BigViewPopup";
+import { preloadPopup, triggerPopup } from "./BigViewPopup";
 
 export function ItemPreview({ item, inactive = false }) {
 	let embed;
@@ -20,7 +20,7 @@ export function ItemPreview({ item, inactive = false }) {
 
 	return <div
 		className="w-full bg-slate-700 rounded flex gap-4 items-center"
-		onMouseEnter={() => { preloadPopup(item) }}
+		// onMouseEnter={() => { preloadPopup(item) }}
 	>
 		<div className="w-4/12">
 			{embed}
