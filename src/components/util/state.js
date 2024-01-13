@@ -32,9 +32,13 @@ function restoreFromLocalStorage() {
 		console.log(window.localStorage.getItem('stateMap'));
 	}
 }
-window.addEventListener('load', () => {
+
+let loaded = false;
+export function loadState() {
+	if (loaded) return;
+	loaded = true;
 	restoreFromLocalStorage();
-})
+}
 
 const categoryMap = new Map();
 function initCategories() {
