@@ -1,3 +1,4 @@
+'use client';
 import { preloadPopup, triggerPopup } from "./BigViewPopup";
 
 export function ItemPreview({ item, inactive = false }) {

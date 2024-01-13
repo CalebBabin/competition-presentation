@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useAllItems, useCategory, useCategoryCount, useItemData } from "../../util/state";
-import { ImageEmbed } from "../../components/ItemPreview";
+'use client';
+
+import { ImageEmbed } from "@/components/ItemPreview";
+import { useAllItems, useCategoryCount, useItemData } from "@/components/util/state";
+import { useEffect, useMemo, useState } from "react";
 
 let index = 0;
 let indexMax = 0;
@@ -51,12 +53,12 @@ function ItemRenderer(props) {
 		<div className="w-full h-24 bg-slate-700 text-center text-2xl lg:text-6xl">{data.title}</div>
 		<div className="aspect-video bg-slate-500 w-full max-w-[calc(100vh*1.7777777778-18rem)]">
 			<ImageEmbed item={props.item} />
-			</div>
+		</div>
 		<div className="w-full h-24 bg-slate-700 text-center text-2xl lg:text-6xl">by: {data.author}</div>
 	</div>
 }
 
-export default function TinderMethod() {
+export default function Page() {
 	const allItems = useAllItems();
 	const remainingCount = useCategoryCount('maybe');
 

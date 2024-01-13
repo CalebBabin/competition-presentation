@@ -1,12 +1,12 @@
+'use client';
+import { Button } from "@/components/Button";
+import { CodeBlock } from "@/components/CodeBlock";
+import TextInput, { TextArea } from "@/components/Input";
+import { csvToJson } from "@/components/util/parseCSV";
+import { useBackground } from "@/components/util/setPageBackground";
+import { addItem, clearState } from "@/components/util/state";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react"
-import { csvToJson } from "../util/parseCSV";
-import PageLayoutWrapper from "../components/PageLayoutWrapper";
-import { Button } from "../components/Button";
-import TextInput, { TextArea } from "../components/Input";
-import { CodeBlock } from "../components/CodeBlock";
-import { useBackground } from "../util/setPageBackground";
-import { addItem, clearState } from "../util/state";
-import { Navigate } from "react-router-dom";
 
 //import methods
 function parseGoogleSheetsURL(originalURL = '') {
@@ -154,7 +154,9 @@ function FilterData({ data, nextStep }) {
 
 
 const steps = [ImportRawData, FilterData];
-function Setup() {
+
+export default function Page() {
+	const router = useRouter();
 	useBackground('#0f766e');
 	const [stepIndex, setStepIndex] = useState(0);
 	const [data, setData] = useState({});
@@ -165,7 +167,9 @@ function Setup() {
 		if (!Element) {
 			clearState();
 			for (let i = 0; i < data.length; i++) addItem(data[i]);
-			return <Navigate to="/competition" />
+			router.push('/competition');
+
+			return <></>
 		}
 
 		return <Element
@@ -181,5 +185,3 @@ function Setup() {
 		{currentStep}
 	</>)
 }
-
-export default Setup

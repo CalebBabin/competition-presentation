@@ -1,9 +1,10 @@
-import { Button } from "../components/Button"
-import { useBackground } from "../util/setPageBackground"
+'use client';
+
+import { Button } from "@/components/Button";
+import { useBackground } from "@/components/util/setPageBackground";
 
 function Home() {
 	useBackground('#138874');
-
 	return (<>
 		<div className="flex flex-col gap-4 justify-stretch">
 			<Button to='/setup' icon="add">

@@ -1,5 +1,6 @@
+'use client';
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const StyledButton = styled.button`
 	&:hover > .material-symbols-outlined {
@@ -33,7 +34,7 @@ export function Button(props) {
 		className={"relative px-4 py-2 h-12 rounded-[1.5rem] overflow-hidden transition-all duration-100 disabled:opacity-50 disabled:cursor-not-allowed " + themeClass + " " + props.className}
 		style={style}
 	>
-		{props.to ? <Link to={props.to} className="absolute inset-0" /> : null}
+		{props.to ? <Link href={props.to} className="absolute inset-0" /> : null}
 		{props.href ? <a href={props.href} target="_blank" className="absolute inset-0" /> : null}
 		{props.icon ? <span className="material-symbols-outlined transition-all duration-500 text-[2rem] w-8 h-8 absolute left-[.5rem] top-[0.5rem]">{props.icon}</span> : null}
 		{props.children}
