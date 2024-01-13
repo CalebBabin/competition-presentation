@@ -13,6 +13,7 @@ function PopupContents() {
 	const [item, setItem] = useState();
 	const ref = useRef();
 	useEffect(() => {
+		if (!ref.current) return;
 		const listener = (event) => {
 			setItem(event.detail);
 
