@@ -153,7 +153,7 @@ export function useCategory(category) {
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
-		// setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
+		//setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
 		const timeout = setTimeout(() => {
 			setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
 		}, 1000);
@@ -188,7 +188,18 @@ export function useCategoryCount(category) {
 	const [count, setCount] = useState(0);
 	useEffect(() => {
 		setCount(categoryMap.get(category).length);
+
+		const timeout = setTimeout(() => {
+			setCount(categoryMap.get(category).length);
+		}, 1000);
+
+		return () => {
+			try {
+				clearTimeout(timeout);
+			} catch (e) { }
+		}
 	}, [category]);
+
 	useEffect(() => {
 		const addListener = () => {
 			setCount(count + 1)
