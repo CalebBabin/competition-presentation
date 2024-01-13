@@ -48,11 +48,11 @@ function ItemRenderer(props) {
 			transform: `translateX(${(props.index - liveIndex) * 100}%)`
 		}}
 	>
-		<div className="w-full h-24 bg-slate-700">{data.title}</div>
+		<div className="w-full h-24 bg-slate-700 text-center text-2xl lg:text-6xl">{data.title}</div>
 		<div className="aspect-video bg-slate-500 w-full max-w-[calc(100vh*1.7777777778-18rem)]">
 			<ImageEmbed item={props.item} />
 			</div>
-		<div className="w-full h-24 bg-slate-700">{data.author}</div>
+		<div className="w-full h-24 bg-slate-700 text-center text-2xl lg:text-6xl">by: {data.author}</div>
 	</div>
 }
 
