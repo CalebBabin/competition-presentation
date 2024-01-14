@@ -18,9 +18,9 @@ function saveToLocalStorage() {
 setInterval(saveToLocalStorage, 1000);
 
 
+export const categoryNames = ['yes', 'no', 'maybe', 'graveyard'];
 const categoryMap = new Map();
 function initCategories() {
-	const categoryNames = ['yes', 'no', 'maybe', 'graveyard'];
 	for (let index = 0; index < categoryNames.length; index++) {
 		categoryMap.set(categoryNames[index], new Array());
 	}
@@ -139,16 +139,30 @@ setTimeout(loadState, 1);
 export function useAllItems() {
 	const [items, setItems] = useState([]);
 	useEffect(() => {
-		setItems(Array.from(stateMap, ([key, value]) => value));
-		const timeout = setTimeout(() => {
-			setItems(Array.from(stateMap, ([key, value]) => value));
-		}, 1000);
+		const updateItems = (force = false) => {
+			const newItems = Array.from(stateMap, ([key, value]) => value);
+			if (newItems.length !== items.length) {
+				setItems(newItems);
+			}
+		};
+		updateItems();
+		const timeout = setTimeout(updateItems, 1000);
+		const addListener = () => {
+			updateItems(true);
+		}
+		for (let i = 0; i < categoryNames.length; i++) {
+			window.addEventListener('category_' + categoryNames[i] + "_newitem", addListener);
+		}
 		return () => {
+			for (let i = 0; i < categoryNames.length; i++) {
+				window.removeEventListener('category_' + categoryNames[i] + "_newitem", addListener);
+			}
 			try {
 				clearTimeout(timeout);
 			} catch (e) { }
 		}
-	}, []);
+	}, [items]);
+
 	return items;
 }
 
@@ -179,8 +193,8 @@ export function useCategory(category) {
 		window.addEventListener('category_' + category + "_newitem", addListener);
 		window.addEventListener('category_' + category + "_deleteitem", removeListener);
 		return () => {
-			window.addEventListener('category_' + category + "_newitem", addListener);
-			window.addEventListener('category_' + category + "_deleteitem", removeListener);
+			window.removeEventListener('category_' + category + "_newitem", addListener);
+			window.removeEventListener('category_' + category + "_deleteitem", removeListener);
 		}
 	}, [category, items]);
 
@@ -213,8 +227,8 @@ export function useCategoryCount(category) {
 		window.addEventListener('category_' + category + "_newitem", addListener);
 		window.addEventListener('category_' + category + "_deleteitem", removeListener);
 		return () => {
-			window.addEventListener('category_' + category + "_newitem", addListener);
-			window.addEventListener('category_' + category + "_deleteitem", removeListener);
+			window.removeEventListener('category_' + category + "_newitem", addListener);
+			window.removeEventListener('category_' + category + "_deleteitem", removeListener);
 		}
 	}, [category, count]);
 	return count;

@@ -27,7 +27,7 @@ export default function RootLayout(props) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<title>Competition Decider!</title>
 		</head>
-		<body className={inter.className}>
+		<body className={'dark ' + inter.className}>
 			<div ref={ref} className="transition-background duration-1000 w-full min-h-screen flex flex-col gap-4 justify-center items-center">
 				{props.children}
 			</div>

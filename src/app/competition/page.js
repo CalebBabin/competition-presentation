@@ -2,9 +2,35 @@
 
 import BigViewPopup from "@/components/BigViewPopup";
 import { useBackground } from "@/components/util/setPageBackground";
-import { useCategoryCount } from "@/components/util/state";
+import { categoryNames, useAllItems, useCategoryCount } from "@/components/util/state";
 import Link from "next/link";
-import CategoryOverview from "@/components/CategoryOverview";
+import { ItemPreview } from "@/components/ItemPreview";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
+function Categories() {
+	const items = useAllItems();
+
+	const categories = [];
+
+	for (let i = 0; i < categoryNames.length; i++) {
+		const category = categoryNames[i];
+		const categoryItems = items.filter(item => item.data.category === category);
+		categories.push({ name: category, items: categoryItems });
+	}
+
+	return <div className="bg-slate-600 p-2 rounded cursor-default max-w-full w-[700px]">
+		<Accordion type="multiple" className="AccordionContent">
+			{categories.map(category => <AccordionItem key={category.name} value={category.name}>
+				<AccordionTrigger>{category.name} ({category.items.length})</AccordionTrigger>
+				<AccordionContent>
+					<div className="flex flex-col gap-4">
+						{category.items.map(item => <ItemPreview key={item.key} item={item} />)}
+					</div>
+				</AccordionContent>
+			</AccordionItem>)}
+		</Accordion>
+	</div>
+}
 
 export default function Page() {
 	useBackground('#aa2556');
@@ -61,11 +87,7 @@ export default function Page() {
 		<div className="w-full text-center border-t-4 border-dashed">
 			<h2 className="text-xl lg:text-4xl mt-32 mb-8">all submissions:</h2>
 		</div>
-		<CategoryOverview category="yes" />
-		<CategoryOverview category="no" />
-		<CategoryOverview category="maybe" />
-		<CategoryOverview category="graveyard" />
-
+		<Categories />
 		<div className="my-16" />
 	</>)
 }
