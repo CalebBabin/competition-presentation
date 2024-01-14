@@ -6,13 +6,11 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 import { useEffect, useRef } from "react"
-import { loadState } from '../components/util/state';
 
 export default function RootLayout(props) {
 	const ref = useRef();
 	useEffect(() => {
 		if (!ref.current) return;
-		loadState();
 		window.dispatchEvent(new Event('pageBackgroundReady'));
 		const listener = ({ detail }) => {
 			ref.current.style.background = detail;

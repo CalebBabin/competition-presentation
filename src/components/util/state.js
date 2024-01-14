@@ -17,28 +17,6 @@ function saveToLocalStorage() {
 }
 setInterval(saveToLocalStorage, 1000);
 
-function restoreFromLocalStorage() {
-	try {
-		const input = window.localStorage.getItem('stateMap');
-		if (input) {
-			const data = JSON.parse(input);
-			for (let index = 0; index < data.length; index++) {
-				new Item(data[index]);
-			}
-		}
-	} catch (e) {
-		console.error('Failed to restore competition from localstorage');
-		console.error(e);
-		console.log(window.localStorage.getItem('stateMap'));
-	}
-}
-
-let loaded = false;
-export function loadState() {
-	if (loaded) return;
-	loaded = true;
-	restoreFromLocalStorage();
-}
 
 const categoryMap = new Map();
 function initCategories() {
@@ -132,6 +110,31 @@ export function clearState() {
 }
 
 
+function restoreFromLocalStorage() {
+	try {
+		const input = window.localStorage.getItem('stateMap');
+		if (input) {
+			const data = JSON.parse(input);
+			for (let index = 0; index < data.length; index++) {
+				new Item(data[index]);
+			}
+		}
+	} catch (e) {
+		console.error('Failed to restore competition from localstorage');
+		console.error(e);
+		console.log(window.localStorage.getItem('stateMap'));
+	}
+}
+
+let loaded = false;
+export function loadState() {
+	if (loaded || typeof window === 'undefined') return;
+	loaded = true;
+	restoreFromLocalStorage();
+}
+setTimeout(loadState, 1);
+
+
 // Hooks
 export function useAllItems() {
 	const [items, setItems] = useState([]);
@@ -156,7 +159,7 @@ export function useCategory(category) {
 		//setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
 		const timeout = setTimeout(() => {
 			setItems([...(categoryMap.has(category) ? categoryMap.get(category) : [])]);
-		}, 1000);
+		}, 1);
 		return () => {
 			try {
 				clearTimeout(timeout);
@@ -191,7 +194,7 @@ export function useCategoryCount(category) {
 
 		const timeout = setTimeout(() => {
 			setCount(categoryMap.get(category).length);
-		}, 1000);
+		}, 1);
 
 		return () => {
 			try {
