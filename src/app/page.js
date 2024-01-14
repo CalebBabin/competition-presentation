@@ -1,21 +1,29 @@
 'use client';
 
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/button";
 import { useBackground } from "@/components/util/setPageBackground";
+import { ArrowUpCircle, InfoIcon, RefreshCcw } from "lucide-react";
+import Link from "next/link";
 
 function Home() {
 	useBackground('#138874');
 	return (<>
-		<div className="flex flex-col gap-4 justify-stretch">
-			<Button to='/setup' icon="add">
-				Setup New Competition
-			</Button>
-			<Button to='/competition' theme="red" icon="refresh">
-				Resume Cached
-			</Button>
-			<Button href='https://github.com/calebbabin/competition-presentation' theme="teal" icon="info">
-				Learn More
-			</Button>
+		<div className="flex flex-col gap-4 justify-stretch text-right">
+			<Link href='/setup'>
+				<Button variant="default">
+					<ArrowUpCircle /> &nbsp; Setup New Competition
+				</Button>
+			</Link>
+			<Link href='/competition'>
+				<Button variant="secondary">
+					<RefreshCcw /> &nbsp; Resume Cached
+				</Button>
+			</Link>
+			<a href='https://github.com/calebbabin/competition-presentation'>
+				<Button variant="outline">
+					<InfoIcon /> &nbsp; Learn More
+				</Button>
+			</a>
 		</div>
 	</>)
 }

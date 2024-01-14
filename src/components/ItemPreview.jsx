@@ -1,4 +1,5 @@
 'use client';
+import { ExpandIcon } from "lucide-react";
 import { preloadPopup, triggerPopup } from "./BigViewPopup";
 
 export function ItemPreview({ item, inactive = false }) {
@@ -40,9 +41,8 @@ export function ItemPreview({ item, inactive = false }) {
 
 			<span
 				onClick={() => { triggerPopup(item) }}
-				className="material-symbols-outlined"
 			>
-				open_in_full
+				<ExpandIcon />
 			</span>
 		</div>
 	</div>

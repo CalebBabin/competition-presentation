@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from "react";
-import { Button } from "./Button";
+import { Button } from "./ui/button";
 
 export function triggerPopup(item) {
 	window.dispatchEvent(new CustomEvent('itemPreviewPopup', { detail: item }));
@@ -93,7 +93,9 @@ export default function BigViewPopup() {
 		<div className="absolute top-4 right-4">
 			<Button onClick={() => {
 				window.dispatchEvent(new Event('deactivatePopup'));
-			}}>close</Button>
+			}} variant="destructive" >
+				close
+			</Button>
 		</div>
 	</div>
 }

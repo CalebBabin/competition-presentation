@@ -1,5 +1,5 @@
 'use client';
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/CodeBlock";
 import TextInput, { TextArea } from "@/components/Input";
 import { csvToJson } from "@/components/util/parseCSV";
@@ -7,6 +7,7 @@ import { useBackground } from "@/components/util/setPageBackground";
 import { addItem, clearState } from "@/components/util/state";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react"
+import { Code2Icon, Download, DownloadIcon, FileSpreadsheet } from "lucide-react";
 
 //import methods
 function parseGoogleSheetsURL(originalURL = '') {
@@ -19,6 +20,15 @@ function GoogleSheetsImport({ onComplete }) {
 	const [pending, setPending] = useState(false);
 	const [url, setUrl] = useState();
 
+	const urlIsValid = useMemo(() => {
+		try {
+			new URL(url);
+			return true;
+		} catch (e) {
+			return false;
+		}
+	}, [url]);
+
 	return <>
 		<p>
 			Google Sheets import
@@ -26,7 +36,7 @@ function GoogleSheetsImport({ onComplete }) {
 		<TextInput disabled={pending} onChange={(e) => {
 			if (!pending) setUrl(e.target.value)
 		}} />
-		<Button disabled={pending} onClick={async () => {
+		<Button disabled={pending | !urlIsValid} onClick={async () => {
 			if (pending) return;
 			setPending(true);
 			try {
@@ -38,7 +48,9 @@ function GoogleSheetsImport({ onComplete }) {
 				console.error(e);
 				setPending(false);
 			}
-		}} icon="start">Grab Data</Button>
+		}}>
+			<DownloadIcon />&nbsp; Grab Data
+		</Button>
 	</>
 }
 
@@ -64,7 +76,9 @@ function RawJSONImport({ onComplete }) {
 				console.error(e);
 				setPending(false);
 			}
-		}} icon="start">Grab Data</Button>
+		}}>
+			<DownloadIcon />&nbsp; Grab Data
+		</Button>
 	</>
 }
 
@@ -82,10 +96,14 @@ function ImportRawData({ nextStep }) {
 		{importMethod ? importMethod : <>
 			<Button onClick={() => {
 				setImportMethod(<GoogleSheetsImport onComplete={onComplete} />)
-			}} icon="assignment">Google Sheets</Button>
+			}}>
+				<FileSpreadsheet />&nbsp; Google Sheets
+			</Button>
 			<Button onClick={() => {
 				setImportMethod(<RawJSONImport onComplete={onComplete} />)
-			}} icon="developer_mode">paste JSON</Button>
+			}}>
+				<Code2Icon />&nbsp; paste JSON
+			</Button>
 		</>}
 	</>
 }
@@ -148,7 +166,9 @@ function FilterData({ data, nextStep }) {
 				}
 			})
 			nextStep(data)
-		}}>Proceed</Button>
+		}}>
+			Proceed
+		</Button>
 	</>
 }
 
