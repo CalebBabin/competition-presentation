@@ -19,7 +19,7 @@ function Categories() {
 	}
 
 	return <div className="bg-slate-600 p-2 rounded cursor-default max-w-full w-[700px]">
-		<Accordion type="multiple" className="AccordionContent">
+		<Accordion type="single" className="AccordionContent">
 			{categories.map(category => <AccordionItem key={category.name} value={category.name}>
 				<AccordionTrigger>{category.name} ({category.items.length})</AccordionTrigger>
 				<AccordionContent>
