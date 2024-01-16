@@ -6,7 +6,7 @@ import { ArrowUpCircle, InfoIcon, RefreshCcw } from "lucide-react";
 import Link from "next/link";
 
 function Home() {
-	useBackground('#138874');
+	useBackground('#000000');
 	return (<>
 		<div className="flex flex-col gap-4 justify-stretch text-right">
 			<Link href='/setup'>
