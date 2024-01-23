@@ -16,7 +16,7 @@ function PopupContents() {
 		if (!ref.current) return;
 		const listener = (event) => {
 			setItem(event.detail);
-
+			if (!ref.current) return;
 			if (!event.detail) {
 				ref.current.style.transform = 'scale(0,0) rotate(45deg)';
 				ref.current.style.opacity = '0';
